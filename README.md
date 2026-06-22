@@ -19,19 +19,19 @@ This project is a web-based analytics dashboard that visualizes Kansas City Roya
 - MLB statistics APIs (TBD)
 
 ## Project Structure
-royals-analytics-dashboard/
-│
-├── backend/
-│   ├── app.py
-│   └── requirements.txt
-│
-├── frontend/
-│   ├── index.html
-│   ├── script.js
-│   └── style.css
-│
-├── .gitignore
-└── README.md
+royals-analytics-dashboard/     
+│    
+├── backend/    
+│   ├── app.py    
+│   └── requirements.txt    
+│    
+├── frontend/    
+│   ├── index.html    
+│   ├── script.js    
+│   └── style.css    
+│   
+├── .gitignore   
+└── README.md    
 ## Planned Features
 - Live Royals game stats
 - Player performance charts
