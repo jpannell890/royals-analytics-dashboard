@@ -3,41 +3,33 @@
   <head>
     <meta charset="utf-8">
     <title>Kansas City Royals Dashboard</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
 
     <h1>Kansas City Royals Dashboard</h1>
 
-    <table border="1">
-    <tr>
-      <th>Player</th>
-      <th>AVG</th>
-      <th>HR</th>
-      <th>OPS</th>
-    </tr>
+    <section id="record-section">
+      <h2>Standings</h2>
+      <pre id="record"></pre>
+    </section>
 
-    <tr>
-      <td>Bobby Witt Jr.</td>
-      <td>.280</td>
-      <td>9</td>
-      <td>.810</td>
-    </tr>
+    <section id="schedule-section">
+        <h2>Schedule</h2>
+        <pre id="schedule"></pre>
+    </section>
 
-    <tr>
-      <td>Maikel Garcia</td>
-      <td>.266</td>
-      <td>3</td>
-      <td>.705</td>
-    </tr>
+    <section id="players-section">
+        <h2>Roster</h2>
+        <pre id="players"></pre>
+    </section>
 
-    <tr>
-      <td>Vinnie Pasquantino</td>
-      <td>.220</td>
-      <td>6</td>
-      <td>.658</td>
-    </tr>
+    <section id="stats-section">
+        <h2>Team Stats</h2>
+        <pre id="stats"></pre>
+    </section>
 
-  </table>
+    <script src="script.js"></script>
 
   </body>
 </html>

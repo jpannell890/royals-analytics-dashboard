@@ -1,7 +1,15 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from routers.royals import router as royals_router
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],      # allow all frontend origins
+    allow_methods=["*"],      # allow GET, POST, etc.
+    allow_headers=["*"],      # allow all headers
+)
 
 @app.get("/")
 def root():
