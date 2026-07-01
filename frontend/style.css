@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #004687; /* Royals navy */
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: #BD9B60; /* Royals gold */
+}
+
+.section {
+    background: #1A3A6E;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th, table td {
+    border: 1px solid #BD9B60;
+    padding: 8px;
+}
