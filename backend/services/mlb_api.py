@@ -20,3 +20,8 @@ def get_royals_players():
     url = "https://statsapi.mlb.com/api/v1/teams/118/roster"
     response = requests.get(url)
     return response.json()
+
+def get_player_details(player_id: int):
+    url = f"https://statsapi.mlb.com/api/v1/people/{player_id}"
+    res = requests.get(url)
+    return res.json()

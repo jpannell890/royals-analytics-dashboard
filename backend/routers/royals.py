@@ -3,7 +3,8 @@ from services.mlb_api import (
     get_royals_record,
     get_royals_schedule,
     get_royals_stats,
-    get_royals_players
+    get_royals_players,
+    get_player_details
 )
 
 router = APIRouter()
@@ -23,3 +24,7 @@ def royals_stats():
 @router.get("/royals/players")
 def royals_players():
     return get_royals_players()
+
+@router.get("/player/{player_id}")
+def player_details(player_id: int):
+    return get_player_details(player_id)

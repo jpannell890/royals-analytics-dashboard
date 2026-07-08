@@ -102,21 +102,61 @@ async function loadPlayers() {
     const res = await fetch(`${BASE_URL}/royals/players`);
     const data = await res.json();
 
-    let html = "<ul>";
+    let html = `
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>POS</th>
+                    <th>BAT</th>
+                    <th>THW</th>
+                    <th>AGE</th>
+                    <th>HT</th>
+                    <th>WT</th>
+                    <th>Birth Place</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
 
-    data.roster.forEach(player => {
-        const name = player.person.fullName;
-        const number = player.jerseyNumber;
+    for (const player of data.roster) {
+        const id = player.person.id;
         const pos = player.position.abbreviation;
 
-        html += `
-            <li>
-                #${number} — ${name} (${pos})
-            </li>
-        `;
-    })
+        // Get player details
+        const detailRes = await fetch(`${BASE_URL}/player/${id}`);
+        const detailData = await detailRes.json();
+        const p = detailData.people[0];
 
-    html += "</ul>";
+        const name = p.fullName ?? "Unknown";
+        const bat = p.batSide?.code ?? "—";
+        const thw = p.pitchHand?.code ?? "—";
+        const age = p.currentAge ?? "—";
+        const ht = p.height ?? "—";
+        const wt = p.weight ?? "—";
+        const birth = `${p.birthCity ?? ""}, ${p.birthCountry ?? ""}`.trim() || "—";
+
+
+
+        html += `
+            <tr>
+                <td>${name}</td>
+                <td>${pos}</td>
+                <td>${bat}</td>
+                <td>${thw}</td>
+                <td>${age}</td>
+                <td>${ht}</td>
+                <td>${wt}</td>
+                <td>${birth}</td>
+            </tr>
+        `;
+
+    }
+
+    html += `
+            </tbody>
+        </table>
+    `
 
     document.getElementById("players").innerHTML = html;
 }
