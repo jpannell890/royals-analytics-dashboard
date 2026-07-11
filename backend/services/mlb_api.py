@@ -23,5 +23,20 @@ def get_royals_players():
 
 def get_player_details(player_id: int):
     url = f"https://statsapi.mlb.com/api/v1/people/{player_id}"
-    res = requests.get(url)
-    return res.json()
+    response = requests.get(url)
+    return response.json()
+
+def get_player_hitting_stats(player_id: int):
+    url = f"https://statsapi.mlb.com/api/v1/people/{player_id}/stats?stats=season&group=hitting"
+    response = requests.get(url)
+    return response.json()
+
+def get_player_pitching_stats(player_id: int):
+    url = f"https://statsapi.mlb.com/api/v1/people/{player_id}/stats?stats=season&group=pitching"
+    response = requests.get(url)
+    return response.json()
+
+def get_player_fielding_stats(player_id: int):
+    url = f"https://statsapi.mlb.com/api/v1/people/{player_id}/stats?stats=season&group=fielding"
+    response = requests.get(url)    
+    return response.json()

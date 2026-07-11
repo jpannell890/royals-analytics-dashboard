@@ -161,13 +161,128 @@ async function loadPlayers() {
     document.getElementById("players").innerHTML = html;
 }
 
-async function loadStats() {
-    const res = await fetch(`${BASE_URL}/royals/stats`);
+async function loadHittingStats() {
+    const res = await fetch(`${BASE_URL}/royals/players`);
     const data = await res.json();
-    document.getElementById("stats").textContent = JSON.stringify(data, null, 2);
+
+    let html = `
+        <h3>Hitting</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>POS</th>
+                    <th>AVG</th>
+                    <th>OPS</th>
+                    <th>HR</th>
+                    <th>RBI</th>
+                    <th>SB</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    for (const player of data.roster) {
+        const id = player.person.id;
+        const pos = player.position.abbreviation;
+
+        // Get player hitting stats
+        const statsRes = await fetch(`${BASE_URL}/player/${id}/stats/hitting`);
+        const statsData = await statsRes.json();
+
+        const stat = statsData?.stats?.[0]?.splits?.[0]?.stat ?? {};
+
+        const name = player.person.fullName ?? "Unknown";
+        const avg = stat.avg ?? "—";
+        const ops = stat.ops ?? "—";
+        const hr = stat.homeRuns ?? "—";
+        const rbi = stat.rbi ?? "—";
+        const sb = stat.stolenBases ?? "—";
+
+        html += `
+            <tr>
+                <td>${name}</td>
+                <td>${pos}</td>
+                <td>${avg}</td>
+                <td>${ops}</td>
+                <td>${hr}</td>
+                <td>${rbi}</td>
+                <td>${sb}</td>
+            </tr>
+        `;
+
+    }
+
+    html += `
+            </tbody>
+        </table>
+    `
+
+    document.getElementById("hitting").innerHTML = html;
+}
+
+async function loadPitchingStats() {
+    const res = await fetch(`${BASE_URL}/royals/players`);
+    const data = await res.json();
+
+    let html = `
+        <h3>Pitching</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>POS</th>
+                    <th>ERA</th>
+                    <th>WHIP</th>
+                    <th>SO</th>
+                    <th>BB</th>
+                    <th>IP</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    for (const player of data.roster) {
+        const id = player.person.id;
+        const pos = player.position.abbreviation;
+
+        // Get player pitching stats
+        const statsRes = await fetch(`${BASE_URL}/player/${id}/stats/pitching`);
+        const statsData = await statsRes.json();
+
+        const stat = statsData?.stats?.[0]?.splits?.[0]?.stat ?? {};
+
+        const name = player.person.fullName ?? "Unknown";
+        const era = stat.era ?? "—";
+        const whip = stat.whip ?? "—";
+        const so = stat.strikeOuts ?? "—";
+        const bb = stat.baseOnBalls ?? "—";
+        const ip = stat.inningsPitched ?? "—";
+
+        html += `
+            <tr>
+                <td>${name}</td>
+                <td>${pos}</td>
+                <td>${era}</td>
+                <td>${whip}</td>
+                <td>${so}</td>
+                <td>${bb}</td>
+                <td>${ip}</td>
+            </tr>
+        `;
+
+    }
+
+    html += `
+            </tbody>
+        </table>
+    `
+
+    document.getElementById("pitching").innerHTML = html;
 }
 
 loadRecord();
 loadSchedule();
 loadPlayers();
-loadStats();
+loadHittingStats();
+loadPitchingStats();
