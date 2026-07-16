@@ -186,6 +186,9 @@ async function loadHittingStats() {
         const id = player.person.id;
         const pos = player.position.abbreviation;
 
+        if (pos === "P") continue; // Skip pitchers
+
+
         // Get player hitting stats
         const statsRes = await fetch(`${BASE_URL}/player/${id}/stats/hitting`);
         const statsData = await statsRes.json();
@@ -246,6 +249,8 @@ async function loadPitchingStats() {
         const id = player.person.id;
         const pos = player.position.abbreviation;
 
+        if (pos != "P") continue;
+
         // Get player pitching stats
         const statsRes = await fetch(`${BASE_URL}/player/${id}/stats/pitching`);
         const statsData = await statsRes.json();
@@ -281,8 +286,66 @@ async function loadPitchingStats() {
     document.getElementById("pitching").innerHTML = html;
 }
 
+async function loadFieldingStats() {
+    const res = await fetch(`${BASE_URL}/royals/players`);
+    const data = await res.json();
+
+    let html = `
+        <h3>Fielding</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>POS</th>
+                    <th>PO</th>
+                    <th>A</th>
+                    <th>E</th>
+                    <th>FPCT</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    for (const player of data.roster) {
+        const id = player.person.id;
+        const pos = player.position.abbreviation;
+
+        // Get player fielding stats
+        const statsRes = await fetch(`${BASE_URL}/player/${id}/stats/fielding`);
+        const statsData = await statsRes.json();
+
+        const stat = statsData?.stats?.[0]?.splits?.[0]?.stat ?? {};
+
+        const name = player.person.fullName ?? "Unknown";
+        const po = stat.putOuts ?? "—";
+        const a = stat.assists ?? "—";
+        const e = stat.errors ?? "—";
+        const fpct = stat.fielding ?? "—"; // MLB API uses "fielding" for fielding percentage
+
+        html += `
+            <tr>
+                <td>${name}</td>
+                <td>${pos}</td>
+                <td>${po}</td>
+                <td>${a}</td>
+                <td>${e}</td>
+                <td>${fpct}</td>
+            </tr>
+        `;
+
+    }
+
+    html += `
+            </tbody>
+        </table>
+    `
+
+    document.getElementById("fielding").innerHTML = html;
+}
+
 loadRecord();
 loadSchedule();
 loadPlayers();
 loadHittingStats();
 loadPitchingStats();
+loadFieldingStats();
