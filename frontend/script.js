@@ -61,7 +61,18 @@ async function loadSchedule() {
     const res = await fetch(`${BASE_URL}/royals/schedule`);
     const data = await res.json();
 
-    let html = "<ul>";
+    let html = `
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Opponent</th>
+                    <th>Score</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
 
     data.dates.forEach(day => {
 
@@ -82,18 +93,35 @@ async function loadSchedule() {
                 const royalsScore = (royalsIsAway ? away.score : home.score) ?? "—";
                 const oppScore = (royalsIsAway ? home.score : away.score) ?? "—";
 
-                const result = game.status.detailedState;
+                const isFinal = game.status.detailedState === "Final";
+
+                let result;
+
+                if (isFinal) {
+                    if (royalsScore > oppScore) result = "W";
+                    else result = "L";
+                } else {
+                    result = game.status.detailedState;
+                }
+
+                const rowClass = result === "W" ? "win" : result === "L" ? "loss" : "";
 
                 html += `
-                    <li>
-                        ${day.date}: Royals ${royalsScore} vs ${opponent} ${oppScore} (${result})
-                    </li>
+                    <tr class="${rowClass}">
+                        <td>${day.date}</td>
+                        <td>${opponent}</td>
+                        <td>${royalsScore} - ${oppScore}</td>
+                        <td>${result}</td>
+                    </tr>
                 `;
             }
         })
     })
 
-    html += "</ul>";
+    html += `
+            </tbody>
+        </table>
+    `
 
     document.getElementById("schedule").innerHTML = html
 }

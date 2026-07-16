@@ -27,3 +27,11 @@ table th, table td {
     border: 1px solid #BD9B60;
     padding: 8px;
 }
+
+.win {
+    background-color: rgba(165, 214, 167);
+}
+
+.loss {
+    background-color: rgba(239, 154, 154); 
+}
