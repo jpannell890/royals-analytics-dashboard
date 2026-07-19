@@ -1,20 +1,16 @@
 const BASE_URL = "http://127.0.0.1:8000";
 
-async function loadRecord() {
+async function loadDivision() {
     const res = await fetch(`${BASE_URL}/royals/record`);
     const data = await res.json();
 
-    // Find the Royals inside the giant standings array
-    const royals = data.records[1].teamRecords.find(
-        team => team.team.id === 118
-    );
-
-    // Find AL Central (division 202)
+    // Find American League
     const alCentral = data.records.find(
         record => record.division.id === 202
     );
 
     let html = `
+        <h3>American League Central Standings</h3>
         <table>
             <thead>
                 <tr>
@@ -54,7 +50,62 @@ async function loadRecord() {
         </table>
     `
     
-    document.getElementById("record").innerHTML = html;
+    document.getElementById("central").innerHTML = html;
+}
+
+async function loadLeague() {
+    const res = await fetch(`${BASE_URL}/royals/record`);
+    const data = await res.json();
+
+    // Find American League
+    const americanLeague = [
+        ...data.records[0].teamRecords, // AL East
+        ...data.records[1].teamRecords, // AL Central
+        ...data.records[2].teamRecords  // AL West
+    ];
+
+    // If difference is negative, then a comes first
+    americanLeague.sort((a,b) => a.leagueRank - b.leagueRank);
+
+    let html = `
+        <h3>American League Standings</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Team</th>
+                    <th>W</th>
+                    <th>L</th>
+                    <th>Streak</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    americanLeague.forEach(team => {
+        const name = team.team.name;
+        const wins = team.wins;
+        const losses = team.losses;
+        const rank = team.leagueRank;
+        const streak = team.streak.streakCode; // example: W8, L7
+
+        html += `
+            <tr>
+                <td>${rank}</td>
+                <td>${name}</td>
+                <td>${wins}</td>
+                <td>${losses}</td>
+                <td>${streak}</td>
+            </tr>
+        `;
+    });
+
+    html += `
+            </tbody>
+        </table>
+    `
+    
+    document.getElementById("american").innerHTML = html;
 }
 
 async function loadSchedule() {
@@ -371,7 +422,8 @@ async function loadFieldingStats() {
     document.getElementById("fielding").innerHTML = html;
 }
 
-loadRecord();
+loadDivision();
+loadLeague();
 loadSchedule();
 loadPlayers();
 loadHittingStats();
