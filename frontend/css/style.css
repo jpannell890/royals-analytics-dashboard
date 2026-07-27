@@ -35,3 +35,26 @@ table th, table td {
 .loss {
     background-color: rgba(239, 154, 154); 
 }
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  background-color: #1A3A6E;
+  padding: 15px;
+  border-bottom: 2px solid #BD9B60; /* Royals gold */
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: bold;
+}
+
+nav a:hover {
+  background-color: #BD9B60; /* Royals gold */
+  color: #004687; /* Royals navy */
+}
