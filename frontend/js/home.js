@@ -1,6 +1,7 @@
 async function loadHomePage() {
     await loadRecord();
     await loadDivisionRank();
+    await loadTodayGame();
 }
 
 async function loadRecord() {
@@ -27,6 +28,52 @@ async function loadDivisionRank() {
 
     document.getElementById("division-rank").innerHTML = `
         <h3>Division Rank</h3>
-        <p>${royals.divisionRank} in AL Central</p>
+        <p>${royals.divisionRank}th in AL Central</p>
     `;
+}
+
+async function loadTodayGame() {
+    const data = await getJSON("/royals/schedule");
+
+    // Get today's date in the format of YYY-MM-DD
+    const today = new Date().toISOString().split("T")[0];
+
+    const todayGames = data.dates.find(d => d.date === today);
+
+    if (!todayGames) {
+        document.getElementById("today-game").innerHTML = `
+            <h3>Today's Game</h3>
+            <p>No game today.</p>
+        `;
+        return;
+    }
+
+    const game = todayGames.games[0];
+
+    let opponent;
+    let side;
+
+    if (game.teams.away.team.name === "Kansas City Royals") {
+        opponent = game.teams.home.team.name;
+        side = "away";
+    } else {
+        opponent = game.teams.away.team.name;
+        side = "home";
+    }
+
+    const date = new Date(game.gameDate).toLocaleString();
+
+    if (side === "away") {
+        document.getElementById("today-game").innerHTML = `
+            <h3>Today's Game</h3>
+            <p>Royals @ ${opponent}</p>
+            <p>${date}</p>
+        `;
+    } else {
+        document.getElementById("today-game").innerHTML = `
+            <h3>Today's Game</h3>
+            <p>${opponent} @ Royals</p>
+            <p>${date}</p>
+        `;
+    }
 }
