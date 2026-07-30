@@ -4,10 +4,19 @@ body {
     color: white;
     margin: 0;
     padding: 20px;
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 h1, h2, h3 {
     color: #BD9B60; /* Royals gold */
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .section {
@@ -17,63 +26,77 @@ h1, h2, h3 {
     border-radius: 8px;
 }
 
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    background-color: #1A3A6E;
+    padding: 15px;
+    border-bottom: 2px solid #BD9B60;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+    font-weight: bold;
+}
+
+nav a:hover {
+    background-color: #BD9B60;
+    color: #004687;
+}
+
+/* All tables across website */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    margin-bottom: 25px;
+    background-color: #1A3A6E;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
 }
 
-table th, table td {
+table th {
+    background-color: #004687;
+    color: #BD9B60;
+    font-weight: bold;
+}
+
+table th,
+table td {
     border: 1px solid #BD9B60;
     padding: 8px;
+    text-align: center;
 }
 
+table tr:hover {
+    background-color: rgba(189, 155, 96, 0.2);
+}
+
+/* Game results */
 .win {
-    background-color: rgba(165, 214, 167);
+    background-color: rgba(165, 214, 167, 0.8);
+    color: black;
 }
 
 .loss {
-    background-color: rgba(239, 154, 154); 
+    background-color: rgba(239, 154, 154, 0.8);
+    color: black;
 }
 
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  background-color: #1A3A6E;
-  padding: 15px;
-  border-bottom: 2px solid #BD9B60; /* Royals gold */
-}
 
-nav a {
-  color: white;
-  text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 6px;
-  transition: background-color 0.3s, color 0.3s;
-  font-weight: bold;
-}
-
-nav a:hover {
-  background-color: #BD9B60; /* Royals gold */
-  color: #004687; /* Royals navy */
-}
-
-/* Center page title */
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-/* Home dashboard layout */
+/* Home dashboard */
 #home-section {
     text-align: center;
 }
 
-/* Welcome heading and paragraph span full width */
 #home-section h2,
 #home-section > p {
-    grid-column: 1 / -1;
     text-align: center;
 }
 
@@ -110,4 +133,50 @@ h1 {
 #today-game p {
     font-size: 18px;
     margin: 8px 0;
+}
+
+
+/* Logo header */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.logo {
+    width: 110px;
+    height: auto;
+}
+
+
+/* Stats page spacing */
+#stats-section h2 {
+    margin-top: 25px;
+    margin-bottom: 8px;
+}
+
+#stats-section table {
+    margin-top: 0;
+}
+
+
+/* General div containers */
+#hitting,
+#pitching,
+#fielding,
+#schedule,
+#standings,
+#players {
+    font-family: Arial, sans-serif;
+}
+
+footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 15px;
+    background-color: #1A3A6E;
+    color: #BD9B60;
+    border-top: 2px solid #BD9B60;
 }
