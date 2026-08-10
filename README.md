@@ -20,24 +20,46 @@ This project is a web-based analytics dashboard that visualizes Kansas City Roya
 
 ## Project Structure
 royals-analytics-dashboard/     
-│    
-├── backend/    
-│   ├── app.py    
-│   └── requirements.txt    
-│    
-├── frontend/    
-│   ├── index.html    
-│   ├── script.js    
-│   └── style.css    
-│   
-├── .gitignore   
-└── README.md    
+│     
+├── backend/     
+│   ├── app.py      
+│   ├── requirements.txt     
+│   │     
+│   ├── routers/     
+│   │   └── royals.py     
+│   │     
+│   └── services/     
+│       └── mlb_api.py     
+│     
+├── frontend/     
+│   ├── index.html     
+│   ├── players.html     
+│   ├── schedule.html     
+│   ├── standings.html     
+│   ├── stats.html     
+│   │     
+│   ├── css/     
+│   │   └── style.css     
+│   │     
+│   ├── images/     
+│   │   └── royals-logo.png     
+│   │     
+│   └── js/     
+│       ├── common.js     
+│       ├── home.js     
+│       ├── players.js     
+│       ├── schedule.js     
+│       ├── standings.js    
+│       └── stats.js    
+│     
+├── .gitignore     
+└── README.md     
 ## Planned Features
-- Live Royals game stats
-- Player performance charts
-- Season trend visualizations
+- Kansas City Royals player statistics
+- MLB standings
+- Updated roster and live game results
 - API endpoints for stats retrieval
-- Responsive frontend UI
+- Responsive frontend interface
 
 ## Status
-Project setup complete — backend and frontend development in progress.
+Project setup complete — initial backend and frontend development complete.
